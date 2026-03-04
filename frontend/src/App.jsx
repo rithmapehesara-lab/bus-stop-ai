@@ -550,7 +550,7 @@ export default function App(){
       </div>
 
       {/* Bottom Navigation */}
-      <div style={{borderRadius:"24px 24px 0 0",background:"rgba(255,255,255,0.75)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"0 -4px 30px rgba(0,0,0,0.1)",borderTop:"1px solid rgba(255,255,255,0.6)",borderTop:`1px solid ${dm.border}`,display:"flex",zIndex:100,boxShadow:"0 -2px 20px rgba(0,0,0,0.1)"}}>
+      <div style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000,borderRadius:"24px 24px 0 0",background:"rgba(255,255,255,0.75)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"0 -4px 30px rgba(0,0,0,0.1)",borderTop:"1px solid rgba(255,255,255,0.6)",borderTop:`1px solid ${dm.border}`,display:"flex",zIndex:100,boxShadow:"0 -2px 20px rgba(0,0,0,0.1)"}}>
         {bottomTabs.map(({id,icon,label})=>(
           <button key={id} onClick={()=>setTab(id)} style={{flex:1,padding:"10px 4px",border:"none",cursor:"pointer",background:"transparent",display:"flex",flexDirection:"column",alignItems:"center",gap:"2px"}}>
             <span style={{fontSize:"20px"}}>{icon}</span>
