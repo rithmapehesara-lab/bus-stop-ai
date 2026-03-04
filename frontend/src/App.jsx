@@ -277,7 +277,7 @@ export default function App(){
       </div>
 
       {/* Content */}
-      <div style={{padding:"16px",maxWidth:"480px",margin:"0 auto"}}>
+      <div style={{padding:"16px",maxWidth:"480px",margin:"0 auto",paddingBottom:"90px",paddingBottom:"90px"}}>
 
         {/* HOME */}
         {tab==="home"&&<>
