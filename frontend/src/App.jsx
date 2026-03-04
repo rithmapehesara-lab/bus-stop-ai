@@ -242,7 +242,7 @@ export default function App(){
   if(showSplash)return <SplashScreen onDone={()=>setShowSplash(false)}/>;
 
   return(
-    <div style={{minHeight:"100vh",width:"100%",maxWidth:"100vw",overflowX:"hidden",background:dm.bg,fontFamily:"'Segoe UI',sans-serif",color:dm.text,paddingBottom:"80px",fontSize:`${14*fs}px`,transition:"all 0.3s"}}>
+    <div style={{minHeight:"100vh",width:"100vw",overflowX:"hidden",background:dm.bg,fontFamily:"'Segoe UI',sans-serif",color:dm.text,paddingBottom:"80px",fontSize:`${14*fs}px`,transition:"all 0.3s"}}>
 
       {/* Toast */}
       {toast&&<div style={{position:"fixed",top:"80px",left:"50%",transform:"translateX(-50%)",background:"#1e293b",color:"white",padding:"10px 20px",borderRadius:"20px",zIndex:9999,fontSize:`${13*fs}px`,fontWeight:"600",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",whiteSpace:"nowrap"}}>{toast}</div>}
