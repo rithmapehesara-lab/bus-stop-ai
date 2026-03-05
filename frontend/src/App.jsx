@@ -111,6 +111,18 @@ export default function App(){
   const[myRating,setMyRating]=useState(0);
   const[passengers]=useState(()=>Math.floor(Math.random()*40)+10);
   const notifRef=useRef(false);
+const [user,setUser]=useState(()=>JSON.parse(localStorage.getItem("bt_user")||"null"));
+const [showLogin,setShowLogin]=useState(false);
+const [loginForm,setLoginForm]=useState({name:"",email:"",pass:""});
+const [isRegister,setIsRegister]=useState(false);
+
+const handleLogin=()=>{
+  if(!loginForm.name||!loginForm.pass){showToast("Fill all fields");return;}
+  const userData={name:loginForm.name,email:loginForm.email,avatar:loginForm.name[0].toUpperCase()};
+  localStorage.setItem("bt_user",JSON.stringify(userData));
+  setUser(userData);setShowLogin(false);showToast("Welcome "+loginForm.name+"!");
+};
+const handleLogout=()=>{localStorage.removeItem("bt_user");setUser(null);showToast("Logged out!");};
 
   const t=LANGUAGES[lang];
   const filtered=route==="all"?ALL_STOPS:ALL_STOPS.filter(s=>s.route===route);
@@ -247,7 +259,21 @@ export default function App(){
       {/* Toast */}
       {toast&&<div style={{position:"fixed",top:"80px",left:"50%",transform:"translateX(-50%)",background:"#1e293b",color:"white",padding:"10px 20px",borderRadius:"20px",zIndex:9999,fontSize:`${13*fs}px`,fontWeight:"600",boxShadow:"0 4px 20px rgba(0,0,0,0.3)",whiteSpace:"nowrap"}}>{toast}</div>}
 
-      {/* SOS Overlay */}
+      {showLogin&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:9999}} onClick={()=>setShowLogin(false)}>
+  <div style={{background:"white",borderRadius:"20px",padding:"24px",width:"300px",margin:"16px"}} onClick={e=>e.stopPropagation()}>
+    <div style={{fontSize:"20px",fontWeight:"800",marginBottom:"16px",textAlign:"center"}}>👤 {isRegister?"Register":"Login"}</div>
+    <input placeholder="Your Name" value={loginForm.name} onChange={e=>setLoginForm({...loginForm,name:e.target.value})} style={{width:"100%",padding:"10px",borderRadius:"10px",border:"2px solid #e2e8f0",marginBottom:"10px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+    <input placeholder="Email (optional)" value={loginForm.email} onChange={e=>setLoginForm({...loginForm,email:e.target.value})} style={{width:"100%",padding:"10px",borderRadius:"10px",border:"2px solid #e2e8f0",marginBottom:"10px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+    <input placeholder="Password" type="password" value={loginForm.pass} onChange={e=>setLoginForm({...loginForm,pass:e.target.value})} style={{width:"100%",padding:"10px",borderRadius:"10px",border:"2px solid #e2e8f0",marginBottom:"16px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+    <button onClick={handleLogin} style={{width:"100%",padding:"12px",borderRadius:"10px",border:"none",background:"#1d4ed8",color:"white",fontSize:"14px",fontWeight:"700",cursor:"pointer"}}>
+      {isRegister?"Create Account":"Login"}
+    </button>
+    <div style={{textAlign:"center",marginTop:"12px",fontSize:"12px",color:"#64748b",cursor:"pointer"}} onClick={()=>setIsRegister(!isRegister)}>
+      {isRegister?"Already have account? Login":"New user? Register"}
+    </div>
+  </div>
+</div>}
+{/* SOS Overlay */}
       {sosActive&&<div style={{position:"fixed",inset:0,background:"rgba(239,68,68,0.95)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",zIndex:9998,color:"white"}}>
         <div style={{fontSize:"60px",animation:"pulse 0.5s infinite alternate"}}>🆘</div>
         <div style={{fontSize:"28px",fontWeight:"900",marginTop:"16px"}}>SOS ACTIVATED</div>
@@ -269,7 +295,8 @@ export default function App(){
           <div style={{display:"flex",gap:"5px",alignItems:"center",flexWrap:"wrap",justifyContent:"flex-end"}}>
             {weather&&<div style={{...Bdg("rgba(255,255,255,0.2)","white"),fontSize:"11px"}}>{weatherIcon(weather.code)} {weather.temp}°C {weather.rain>50?"🌧️":""}</div>}
             <button onClick={triggerSOS} style={{padding:"5px 10px",borderRadius:"20px",border:"none",cursor:"pointer",fontSize:"11px",fontWeight:"800",background:"#ef4444",color:"white",animation:sosActive?"pulse 0.5s infinite":"none"}}>🆘 SOS</button>
-            {Object.entries(LANGUAGES).map(([k,v])=>(
+            {user?<button onClick={handleLogout} style={{padding:"4px 10px",borderRadius:"20px",border:"none",cursor:"pointer",background:"rgba(255,255,255,0.2)",color:"white",fontSize:"11px",fontWeight:"700"}}>{user.avatar} {user.name}</button>:<button onClick={()=>setShowLogin(true)} style={{padding:"4px 10px",borderRadius:"20px",border:"none",cursor:"pointer",background:"rgba(255,255,255,0.9)",color:"#1d4ed8",fontSize:"11px",fontWeight:"700"}}>Login</button>}
+{Object.entries(LANGUAGES).map(([k,v])=>(
               <button key={k} onClick={()=>setLang(k)} style={{padding:"4px 8px",borderRadius:"20px",border:"none",cursor:"pointer",fontSize:"10px",fontWeight:"700",background:lang===k?"white":"rgba(255,255,255,0.2)",color:lang===k?"#1d4ed8":"white"}}>{v.label}</button>
             ))}
           </div>
