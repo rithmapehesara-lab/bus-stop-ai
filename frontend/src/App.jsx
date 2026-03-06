@@ -252,6 +252,40 @@ const handleLogout=()=>{localStorage.removeItem("bt_user");setUser(null);showToa
   const weatherIcon=(code)=>{if(!code&&code!==0)return"🌤️";if(code===0)return"☀️";if(code<=3)return"⛅";if(code<=67)return"🌧️";if(code<=77)return"❄️";return"⛈️";};
 
   if(showSplash)return <SplashScreen onDone={()=>setShowSplash(false)}/>;
+if(!user)return(
+  <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#1d4ed8,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}}>
+    <div style={{background:"white",borderRadius:"24px",padding:"32px",width:"100%",maxWidth:"360px",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
+      <div style={{textAlign:"center",marginBottom:"24px"}}>
+        <div style={{fontSize:"50px"}}>🚌</div>
+        <div style={{fontSize:"24px",fontWeight:"800",color:"#1d4ed8",marginTop:"8px"}}>BusTrack SL</div>
+        <div style={{fontSize:"13px",color:"#64748b",marginTop:"4px"}}>Sri Lanka Smart Bus Announcer</div>
+      </div>
+      <input placeholder="Your Name" value={loginForm.name} onChange={e=>setLoginForm({...loginForm,name:e.target.value})} style={{width:"100%",padding:"12px",borderRadius:"12px",border:"2px solid #e2e8f0",marginBottom:"12px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+      <input placeholder="Password" type="password" value={loginForm.pass} onChange={e=>setLoginForm({...loginForm,pass:e.target.value})} style={{width:"100%",padding:"12px",borderRadius:"12px",border:"2px solid #e2e8f0",marginBottom:"16px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+      <button onClick={handleLogin} style={{width:"100%",padding:"14px",borderRadius:"12px",border:"none",background:"linear-gradient(135deg,#1d4ed8,#3b82f6)",color:"white",fontSize:"16px",fontWeight:"700",cursor:"pointer"}}>
+        Login / Register
+      </button>
+      <div style={{textAlign:"center",marginTop:"12px",fontSize:"12px",color:"#94a3b8"}}>No account needed — just enter your name!</div>
+    </div>
+  </div>
+);
+if(!user)return(
+  <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#1d4ed8,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}}>
+    <div style={{background:"white",borderRadius:"24px",padding:"32px",width:"100%",maxWidth:"360px",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
+      <div style={{textAlign:"center",marginBottom:"24px"}}>
+        <div style={{fontSize:"50px"}}>🚌</div>
+        <div style={{fontSize:"24px",fontWeight:"800",color:"#1d4ed8",marginTop:"8px"}}>BusTrack SL</div>
+        <div style={{fontSize:"13px",color:"#64748b",marginTop:"4px"}}>Sri Lanka Smart Bus Announcer</div>
+      </div>
+      <input placeholder="Your Name" value={loginForm.name} onChange={e=>setLoginForm({...loginForm,name:e.target.value})} style={{width:"100%",padding:"12px",borderRadius:"12px",border:"2px solid #e2e8f0",marginBottom:"12px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+      <input placeholder="Password" type="password" value={loginForm.pass} onChange={e=>setLoginForm({...loginForm,pass:e.target.value})} style={{width:"100%",padding:"12px",borderRadius:"12px",border:"2px solid #e2e8f0",marginBottom:"16px",fontSize:"14px",boxSizing:"border-box",outline:"none"}}/>
+      <button onClick={handleLogin} style={{width:"100%",padding:"14px",borderRadius:"12px",border:"none",background:"linear-gradient(135deg,#1d4ed8,#3b82f6)",color:"white",fontSize:"16px",fontWeight:"700",cursor:"pointer"}}>
+        Login / Register
+      </button>
+      <div style={{textAlign:"center",marginTop:"12px",fontSize:"12px",color:"#94a3b8"}}>No account needed — just enter your name!</div>
+    </div>
+  </div>
+);
 
   return(
     <div style={{minHeight:"100vh",width:"100vw",overflowX:"hidden",background:dm.bg,fontFamily:"'Segoe UI',sans-serif",color:dm.text,paddingBottom:"80px",fontSize:`${14*fs}px`,transition:"all 0.3s"}}>
@@ -577,7 +611,7 @@ const handleLogout=()=>{localStorage.removeItem("bt_user");setUser(null);showToa
       </div>
 
       {/* Bottom Navigation */}
-      <div style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000,borderRadius:"24px 24px 0 0",background:"rgba(255,255,255,0.75)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"0 -4px 30px rgba(0,0,0,0.1)",borderTop:"1px solid rgba(255,255,255,0.6)",borderTop:`1px solid ${dm.border}`,display:"flex",zIndex:100,boxShadow:"0 -2px 20px rgba(0,0,0,0.1)"}}>
+      <div style={{position:"fixed",bottom:0,left:0,right:0,zIndex:1000,borderRadius:"24px 24px 0 0",display:"flex",display:"flex",display:"flex",display:"flex",background:"rgba(255,255,255,0.75)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"0 -4px 30px rgba(0,0,0,0.1)",borderTop:"1px solid rgba(255,255,255,0.6)",borderTop:`1px solid ${dm.border}`,display:"flex",zIndex:100,boxShadow:"0 -2px 20px rgba(0,0,0,0.1)"}}>
         {bottomTabs.map(({id,icon,label})=>(
           <button key={id} onClick={()=>setTab(id)} style={{flex:1,padding:"10px 4px",border:"none",cursor:"pointer",background:"transparent",display:"flex",flexDirection:"column",alignItems:"center",gap:"2px"}}>
             <span style={{fontSize:"20px"}}>{icon}</span>
